@@ -18,14 +18,15 @@ define(['jquery'], function($) {
                     'img/b3.png',
                     'img/b4.png',
                     'img/b5.png'
-                ]
+                ] 
             };
             $.extend(cfg,conf);
             var $box = $(conf.container),
                 $slider = $('<div class="slider" id="slider"></div>'),
                 $left = $('<span id="left"><</span>'),
                 $right = $('<span id="right">></span>'),
-                $ul = $('<ul class="nav" id="navs"></ul>');
+                $ul = $('<ul class="nav" id="navs"></ul>'),
+                isload = 1;
             // 初始化小圆点
             for(var i=1;i<=cfg.img.length;i++){
                 var $li = $('<li>'+i+'</li>');
@@ -69,24 +70,33 @@ define(['jquery'], function($) {
             $ul.children('li').first().addClass('active');
             // 上一张
             $left.click(function(){
+              if(isload===0){
+                return;
+              }else{
+                isload=0;
                 cfg.index--;
                 if(cfg.index<0){
                     $slider.css('left',(cfg.img.length+1)*(-1200)+'px');
                     cfg.index=cfg.img.length-1;
                 };
                 manimate(cfg.index);
-                change(cfg.index);
-    
+                change(cfg.index);          
+              }
             });
             // 下一张
             $right.click(function(){
+              if(isload===0){
+                return;
+              }else{
+                isload=0;
                 cfg.index++;
                 if(cfg.index>cfg.img.length){
                     $slider.css('left','-1200px');
                     cfg.index=1;
                 };
-                manimate(cfg.index);
+                manimate(cfg.index);             
                 change(cfg.index);
+              }                
             });
             // 鼠标移上去小圆点切换
             for(var n = 0;n<$ul.children('li').length;n++){
@@ -99,7 +109,11 @@ define(['jquery'], function($) {
             // 切换动画
             function manimate(i){
                 i+=1;
-                $slider.stop().animate({left:-i*1200},500);
+                $slider.stop().animate({left:-i*1200},900,()=>{
+                  if(isload===0){
+                    isload = 1;
+                  }
+                });
             };
             // 点击切换
             function change(i){
