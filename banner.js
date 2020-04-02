@@ -37,7 +37,7 @@ define(['jquery'], function($) {
             for(var j = 0; j<cfg.img.length;j++){
                 var $div = $('<div class="slide"><img src="'+cfg.img[j]+'" alt=""></div>');
                 $slider.append($div);
-            };
+            }
             $slider.append($('<div class="slide"><img src="'+cfg.img[0]+'" alt=""></div>'));
             // 初始化
             $box.append($slider);
@@ -53,7 +53,7 @@ define(['jquery'], function($) {
                     };
                     manimate(cfg.index);
                     change(cfg.index);
-            };
+            }
             cfg.interval=setInterval(auto,cfg.time);
             // 鼠标离开自动轮播
             $box.mouseleave(function(){
@@ -105,11 +105,11 @@ define(['jquery'], function($) {
                     manimate(cfg.index);
                     change(cfg.index);
                 });
-            };
+            }
             // 切换动画
             function manimate(i){
-                i+=1;
-                $slider.stop().animate({left:-i*1200},900,()=>{
+                i=i+1;
+                $slider.stop().animate({left:-i*1200},900,function(){
                   if(isload===0){
                     isload = 1;
                   }
