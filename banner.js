@@ -2,11 +2,10 @@
 define(['jquery'], function($) {
     // var $banner = (function(){
     var Banner = function(){
-        function animate(conf){
+        function animate1(conf){
             var cfg = {
                 // 记录当前小圆点下标
                 index : 0,
-                interval:'',
                 // 默认挂载的DOM
                 container:'body',
                 // 默认轮播切换时间
@@ -26,7 +25,8 @@ define(['jquery'], function($) {
                 $left = $('<span id="left"><</span>'),
                 $right = $('<span id="right">></span>'),
                 $ul = $('<ul class="nav" id="navs"></ul>'),
-                isload = 1;
+                isload = 1,
+                interval;
             // 初始化小圆点
             for(var i=1;i<=cfg.img.length;i++){
                 var $li = $('<li>'+i+'</li>');
@@ -46,7 +46,7 @@ define(['jquery'], function($) {
             $right.after($ul);
             // 自动轮播
             function auto(){
-                    cfg.index++;
+              cfg.index++;
                     if(cfg.index>cfg.img.length){
                         $slider.css('left','-1200px');
                         cfg.index=1;
@@ -54,18 +54,18 @@ define(['jquery'], function($) {
                     manimate(cfg.index);
                     change(cfg.index);
             }
-            cfg.interval=setInterval(auto,cfg.time);
+            interval=setInterval(auto,cfg.time);
             // 鼠标离开自动轮播
             $box.mouseleave(function(){
                 $left.css('opacity','0');
                 $right.css('opacity','0');
-                cfg.interval=setInterval(auto,cfg.time);
+                interval=setInterval(auto,cfg.time);
             });
             // 停止轮播
             $box.mouseenter(function(){
                 $left.css('opacity','50%');
                 $right.css('opacity','50%');
-                clearInterval(cfg.interval);
+                clearInterval(interval);
             });
             $ul.children('li').first().addClass('active');
             // 上一张
@@ -127,7 +127,7 @@ define(['jquery'], function($) {
             };   
         };
         return{
-            animate: animate
+            animate1: animate1
         };
     // }());
     };
